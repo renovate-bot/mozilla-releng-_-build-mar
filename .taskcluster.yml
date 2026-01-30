@@ -11,7 +11,7 @@ policy:
     pullRequests: public
 tasks:
     - $let:
-          trustDomain: "mozilla"
+          trustDomain: "releng"
           level: "1"
           ownerEmail:
               $switch:
