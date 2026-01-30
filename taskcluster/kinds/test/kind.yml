@@ -1,0 +1,28 @@
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+---
+kind-dependencies:
+    - docker-image
+
+transforms:
+    - taskgraph.transforms.matrix
+
+tasks:
+    pytest:
+        matrix:
+            python: ['38', '39', '310']
+        description: "pytest py{matrix[python]}"
+        run-on-tasks-for:
+            - "github-pull-request"
+            - "github-push"
+        attributes:
+            code-review: true
+        worker-type: linux
+        worker:
+            docker-image: {in-tree: 'py{matrix[python]}'}
+            max-run-time: 1800
+        run:
+            using: run-task
+            cwd: '{{checkout}}'
+            command: uv run -p {matrix[python]} pytest
