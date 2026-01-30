@@ -7,4 +7,15 @@ transforms:
     - taskgraph.transforms.task:transforms
 
 tasks:
-    linux: {}
+    py38:
+        definition: python
+        args:
+            PYTHON_VERSION: "3.8"
+    py39:
+        definition: python
+        args:
+            PYTHON_VERSION: "3.9"
+    py310:
+        definition: python
+        args:
+            PYTHON_VERSION: "3.10"
